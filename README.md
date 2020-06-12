@@ -14,21 +14,23 @@ For this project, I will train an agent to navigate (and collect bananas!) in a 
 
 ### Environment & Goal 
 
-A reward of +1 is provided for collecting a yellow banana, and a reward of -1 is provided for collecting a blue banana.  Thus, the goal of your agent is to collect as many yellow bananas as possible while avoiding blue bananas.  
+A reward of **+1** is provided for collecting a yellow banana, and a reward of **-1** is provided for collecting a blue banana.  Thus, the goal of your agent is to collect as many yellow bananas as possible while avoiding blue bananas.  
 
-The state space has 37 dimensions and contains the agent's velocity, along with ray-based perception of objects around agent's forward direction.  Given this information, the agent has to learn how to best select actions.  Four discrete actions are available, corresponding to:
+The state space has **37** dimensions and contains the agent's velocity, along with ray-based perception of objects around agent's forward direction.  Given this information, the agent has to learn how to best select actions.  Four discrete actions are available, corresponding to:
 - **`0`** - move forward.
 - **`1`** - move backward.
 - **`2`** - turn left.
 - **`3`** - turn right.
 
-The task is episodic, and in order to solve the environment, your agent must get an average score of +13 over 100 consecutive episodes.
+The task is episodic, and in order to solve the environment, your agent must get an average score of **+13** over 100 consecutive episodes.
 
 ### Getting Started
 
 #### Install packages and dependencies
 
-For the Training, I used a p2.xlarge type AWS EC2 instance (Ubuntu based Deep Learning AMI, AMI ID i-0aeca4a4e5d610469) the Seoul Region, where I closely located.  Most of the utilities are already installed  in Deep learning AMI so minor correction was made on requirment.txt file. 
+I used a ml.p3.2xlarge type AWS SageMaker notebook instance for training. Most of the utilities are already installed on SageMaker Notbook Instance included python3.6, pytorch, pandas, and Condas. I make a installation scripts for ml-agents, unityagents. 
+
+**If you want to build other OS, follow below instructions**
 
 
 
@@ -64,9 +66,7 @@ For the Training, I used a p2.xlarge type AWS EC2 instance (Ubuntu based Deep Le
 4.  Clone following repository and install additional dependencies.
 
    ```
-   git clone https://github.com/jihys/udacity-rl-project1.git
-   #Alterntively you can download original codes from udcity github. 
-   #git clone https://github.com/udacity/deep-reinforcement-learning.git`
+   git clone https://github.com/yikster/udacity-p1-navigation
    cd python`
    vi requirement.txt` 
    "Correct requirement.txt as needed"`
@@ -104,15 +104,24 @@ For the Training, I used a p2.xlarge type AWS EC2 instance (Ubuntu based Deep Le
 
     (_For AWS_) If you'd like to train the agent on AWS (and have not [enabled a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md)), then please use [this link](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P1/Banana/Banana_Linux_NoVis.zip) to obtain the environment.
 
-2. Place the file in the `udacity-rl-project1/` folder, and unzip (or decompress) the file. 
+2. Place the file in the `udacity-p1-navigation/` folder, and unzip (or decompress) the file. 
 
     
+**My instructions for AWS SageMaker ml.p3.3xlarge**
+1. Clone source
+   ```
+   git clone https://github.com/yikster/udacity-p1-navigation
+   cd udacity-p1-navigation
+   chmod 0700 install.sh
+   
+   ```
+
 
 ### Instructions
 
-Follow the instructions in `Project1_Navigation.ipynb` to get started with training your own agent!  There you will find how to call agent with different DQN algorithms. I used DQN, Dueling DQN, Double DQN for this project. 
+Follow the instructions in `Navigation.ipynb` to get started with training your own agent!  There you will find how to call agent with different DQN algorithms. I used DQN, Dueling DQN, Double DQN for this project. 
 
-`model.py/` defines neural network that estimates Q values. Change the number of hidden layers and nodes as you wish.
+`model.py/` defines neural network that estimates Q values with two hidden layers, but if you want to change hidden layers and nodes, change this file.
 
 `dqn_agent.py` includes Agent class and Replay Buffer class that is used to interact and train agent. This code contains code that does followings:
 
