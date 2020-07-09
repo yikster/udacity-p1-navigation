@@ -9,11 +9,11 @@ import torch.nn.functional as F
 import torch.optim as optim
 
 BUFFER_SIZE = int(1e5)  # replay buffer size
-BATCH_SIZE = 128        # minibatch size
+BATCH_SIZE = 64        # minibatch size
 GAMMA = 0.99            # discount factor
 TAU = 1.e-3             # for soft update of target parameters
 LR = 5.e-4              # learning rate 
-UPDATE_EVERY = 4        # how often to update the network
+UPDATE_EVERY = 2        # how often to update the network
 
 
 device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
@@ -22,7 +22,7 @@ class Agent():
     """Interacts with and learns from the environment."""
 
     def __init__(self, state_size, action_size, seed, 
-                 use_duel_dqn=False,use_double_dqn=False, model_layout="64_2_layers"):
+                 use_duel_dqn=False,use_double_dqn=False):
         """Initialize an Agent object.
         
         Params
@@ -32,18 +32,18 @@ class Agent():
             seed (int): random seed
             use_double_dpn(bool): if True, use double DQN algorithm
             use_deul_dpn(bool) : if True, use deul DQN algorithm
-            model_layout (string): 64_2_layers, 128_2_layers, 64_3_layers, 128_3_layers
+
         """
         self.state_size = state_size
         self.action_size = action_size
         self.seed = random.seed(seed)
         self.use_double_dqn=use_double_dqn
         self.use_duel_dqn=use_duel_dqn
-        self.model_layout=model_layout
+
     
         # Q-Network
-        self.qnetwork_local = QNetwork(state_size, action_size, seed, use_duel_dqn, model_layout).to(device)
-        self.qnetwork_target = QNetwork(state_size, action_size, seed, use_duel_dqn, model_layout).to(device)
+        self.qnetwork_local = QNetwork(state_size, action_size, seed, use_duel_dqn).to(device)
+        self.qnetwork_target = QNetwork(state_size, action_size, seed, use_duel_dqn).to(device)
         self.optimizer = optim.Adam(self.qnetwork_local.parameters(), lr=LR)
 
         # Replay memory
